@@ -2,8 +2,8 @@ class Spaceship extends Floater
 {   
   public Spaceship(double xPos, double yPos) {  
     corners = 4;  
-    xCorners = new int[] {120,0,20,0};   
-    yCorners = new int[] {0,40,0,-40};   
+    xCorners = new int[] {40,0,10,0};   
+    yCorners = new int[] {0,15,0,-16};   
     myColor = color(255);;   
     myCenterX = xPos;
     myCenterY = yPos; 
@@ -23,5 +23,14 @@ class Spaceship extends Floater
   public void setYSpeed(double ySpeed) {
     myYspeed = ySpeed;
   }
+  public double getXSpeed() {
+    return myXspeed;
+  }  
+  public double returnCenterX() {
+    return myCenterX; 
+  }  
+  public double returnCenterY() {
+    return myCenterY; 
+  }  
 }
  
