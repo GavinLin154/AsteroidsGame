@@ -5,6 +5,9 @@ Star[] family = new Star[800];
 boolean acceleratePress = false;
 boolean turnR = false;
 boolean turnL = false;
+boolean deceleratePress = false;
+ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
+double asteroidDistance;
 
 public void setup() 
 {
@@ -13,10 +16,23 @@ public void setup()
   for(int i = 0; i < family.length; i++) {
     family[i] = new Star();
   }  
+  for(int i = 0; i < 13; i++) {
+    asteroids.add(new Asteroid((int)(Math.random()*800),(int)(Math.random()*800)));
+  }  
 }
 public void draw() 
 {
   background(0);
+  for(int i = 0; i < asteroids.size(); i++) {
+    asteroids.get(i).move();
+    asteroids.get(i).show();
+    asteroidDistance = dist((int)asteroids.get(i).getCenterX(), (int)asteroids.get(i).getCenterY(), (int)one.returnCenterX(), (int)one.returnCenterY());
+    if(asteroidDistance <= 40) {
+      asteroids.remove(i);
+      i--;
+      asteroids.add(new Asteroid((int)(Math.random()*800),(int)(Math.random()*800)));
+    }  
+  }  
   for(int i = 0; i < family.length; i++) {
     family[i].show();
   }
@@ -27,8 +43,13 @@ public void draw()
     one.turn(5);
   }
   if(acceleratePress == true) {
-    one.accelerate(0.5);
+     one.accelerate(0.25);
   }
+  if(deceleratePress == true) { 
+    if(one.getXSpeed() >= 0) {
+      one.accelerate(-0.25);  
+    }  
+  }  
   one.show();
   one.move();
 }
@@ -43,8 +64,14 @@ public void keyPressed() {
     turnR = true;
   }
   //accelerate
-  if(key == 'x') {
-    acceleratePress = true;
+  if(key == 'w') {
+     acceleratePress = true;  
+  }  
+  //decelerate
+  if(key == 's') {
+    if(one.getXSpeed() >= 0) {
+       deceleratePress = true;
+    }  
   }  
   //hyperspace
   if(key == 'z') {
@@ -63,7 +90,10 @@ public void keyReleased() {
   if(key == 'd') {
     turnR = false;
   }
-  if(key == 'x') {
-    acceleratePress = false;
+  if(key == 'w') {
+    acceleratePress = false;  
   }
+  if(key == 's') {
+     deceleratePress = false;
+  }  
 }
