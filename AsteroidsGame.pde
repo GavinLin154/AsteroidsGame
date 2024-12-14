@@ -27,7 +27,7 @@ public void draw()
 {
   background(0);
   textSize(30);
-  text("Asteroids Destroyed: " + asteroidsDestroyedCounter, 265,50);
+  text("Asteroids Destroyed: " + asteroidsDestroyedCounter, 250,50);
   for(int i = 0; i < family.length; i++) {
     family[i].show();
   }
